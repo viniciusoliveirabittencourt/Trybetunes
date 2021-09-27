@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import ProfileEdit from './pages/ProfileEdit';
 import Profile from './pages/Profile';
 import Album from './pages/Album';
