@@ -12,7 +12,6 @@ class CardSearch extends React.Component {
       releaseDate,
       collectionId,
     } = this.props;
-    console.log(collectionId);
     return (
       <section>
         <img alt="Imagem do album da banda" src={ artworkUrl100 } />
@@ -22,7 +21,7 @@ class CardSearch extends React.Component {
         <p>{ collectionPrice }</p>
         <Link
           data-testid={ `link-to-album-${collectionId}` }
-          to={ `/album/${collectionId}` }
+          to={ { pathname: `/album/${collectionId}`, id: collectionId } }
         >
           Saiba Mais
         </Link>

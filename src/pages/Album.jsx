@@ -3,6 +3,7 @@ import Header from './Header';
 
 class Album extends React.Component {
   render() {
+    console.log(this);
     return (
       <section>
         <Header />
