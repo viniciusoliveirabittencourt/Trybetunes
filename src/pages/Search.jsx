@@ -7,6 +7,7 @@ import CardSearch from './CardSearch';
 class Search extends React.Component {
   constructor() {
     super();
+    // Commit Test
     this.state = {
       pesquisa: '',
       retornoApi: [],
