@@ -28,10 +28,10 @@ class Header extends React.Component {
     const { carregando, name } = this.state;
     const corpo = (
       <main>
-        <h2>{ name }</h2>
-        <Link to="/search">Página De Pesquisa</Link>
-        <Link to="/favorites">Musicas Favoritas</Link>
-        <Link to="/profile">Perfil</Link>
+        <h2 data-testid="header-user-name">{ name }</h2>
+        <Link data-testid="link-to-search" to="/search">Página De Pesquisa</Link>
+        <Link data-testid="link-to-favorites" to="/favorites">Musicas Favoritas</Link>
+        <Link data-testid="link-to-profile" to="/profile">Perfil</Link>
       </main>
     );
     return (

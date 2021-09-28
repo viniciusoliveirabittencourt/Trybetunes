@@ -12,7 +12,7 @@ class App extends React.Component {
   render() {
     return (
       <BrowserRouter>
-        <Route exact path="/profile/edit">
+        <Route path="/profile/edit">
           <div data-testid="page-profile-edit"><ProfileEdit /></div>
         </Route>
         <Route path="/album/:id">
@@ -21,7 +21,7 @@ class App extends React.Component {
         <Route path="/favorites">
           <div data-testid="page-favorites"><Favorites /></div>
         </Route>
-        <Route path="/profile">
+        <Route exact path="/profile">
           <div data-testid="page-profile"><Profile /></div>
         </Route>
         <Route path="/search">
