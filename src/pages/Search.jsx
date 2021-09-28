@@ -2,6 +2,7 @@ import React from 'react';
 import Header from './Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Carregando from './Carregando';
+import CardSearch from './CardSearch';
 
 class Search extends React.Component {
   constructor() {
@@ -17,20 +18,21 @@ class Search extends React.Component {
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
+      valuePesquisa: value,
       [name]: value,
     });
   }
 
   onClick = () => {
     const { pesquisa } = this.state;
-    const valuePesquisa = pesquisa;
+    const valorPesquisa = pesquisa;
     this.setState({
+      valorPesquisa,
       carregando: true,
       pesquisa: '',
-      text: true,
-      valuePesquisa,
+    }, () => {
+      this.requisisaoApi();
     });
-    this.requisisaoApi();
   }
 
   disableButton = () => {
@@ -39,23 +41,35 @@ class Search extends React.Component {
     return pesquisa.length < numbMini;
   }
 
-  requisisaoApi = async () => {
-    const { pesquisa } = this.state;
-    const arrComAlbuns = await searchAlbumsAPI(pesquisa);
-    this.setState({
-      retornoApi: arrComAlbuns,
-      carregando: false,
-    });
+  requisisaoApi = () => {
+    const { valorPesquisa } = this.state;
+    searchAlbumsAPI(valorPesquisa)
+      .then((r) => this.setState({ retornoApi: [...r], text: true, carregando: false }));
+  }
+
+  renderizacaoCardSearch() {
+    const { retornoApi } = this.state;
+    return retornoApi.map((element, index) => (<CardSearch
+      key={ index }
+      artistName={ element.artistName }
+      collectionName={ element.collectionName }
+      collectionPrice={ element.collectionPrice }
+      artworkUrl100={ element.artworkUrl100 }
+      releaseDate={ element.releaseDate }
+      collectionId={ element.collectionId }
+    />));
   }
 
   render() {
-    const { pesquisa, carregando, valuePesquisa, text } = this.state;
+    const { pesquisa, carregando, valuePesquisa, text, retornoApi } = this.state;
     const textoDaRespotaDaApi = (
-      <h2>
-        Resultado de álbuns de:
-        {' '}
-        { valuePesquisa }
-      </h2>
+      <section>
+        <h2>
+          { retornoApi.length ? `Resultado de álbuns de: ${valuePesquisa}`
+            : 'Nenhum álbum foi encontrado' }
+        </h2>
+        { this.renderizacaoCardSearch() }
+      </section>
     );
     const form = (
       <form>
@@ -75,6 +89,7 @@ class Search extends React.Component {
         >
           Pesquisar
         </button>
+        { carregando ? <Carregando /> : '' }
         { text ? textoDaRespotaDaApi : '' }
       </form>
     );
