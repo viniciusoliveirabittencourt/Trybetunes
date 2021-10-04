@@ -15,9 +15,7 @@ class App extends React.Component {
         <Route path="/profile/edit">
           <div data-testid="page-profile-edit"><ProfileEdit /></div>
         </Route>
-        <Route path="/album/:id">
-          <div data-testid="page-album"><Album /></div>
-        </Route>
+        <Route path="/album/:id" component={ Album } />
         <Route path="/favorites">
           <div data-testid="page-favorites"><Favorites /></div>
         </Route>
