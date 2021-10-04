@@ -26,18 +26,14 @@ class Album extends React.Component {
 
   componentBody = () => {
     const { arrMusic } = this.state;
-    console.log(arrMusic);
-    const arrSemOPrimeiroObjeto = arrMusic;
-    arrSemOPrimeiroObjeto.shift();
-    console.log(arrMusic);
     return (
       <section>
         <h1 data-testid="album-name">{ arrMusic[0].collectionName }</h1>
         <p data-testid="artist-name">{ arrMusic[0].artistName }</p>
         <img alt="Imagem do album selecionado" src={ arrMusic[0].artworkUrl100 } />
-        { arrSemOPrimeiroObjeto
+        { arrMusic.slice(1)
           .map((music, index) => (<MusicCard
-            name={ music.trackCensoredName }
+            name={ music.trackName }
             previewUrl={ music.previewUrl }
             key={ index }
           />)) }
