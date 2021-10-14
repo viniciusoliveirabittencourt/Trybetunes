@@ -4,6 +4,7 @@ import Header from './Header';
 import getMusics from '../services/musicsAPI';
 import Carregando from './Carregando';
 import MusicCard from './MusicCard';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends React.Component {
   constructor() {
@@ -11,11 +12,20 @@ class Album extends React.Component {
     this.state = {
       arrMusic: [],
       carregando: true,
+      favorSongs: [],
     };
   }
 
   componentDidMount = () => {
     this.chamandoApi();
+    getFavoriteSongs()
+      .then((favorSongs) => this.setState({ favorSongs }));
+  }
+
+  carregandoFunc = () => {
+    this.setState({ carregando: true });
+    getFavoriteSongs()
+      .then((favorSongs) => this.setState({ favorSongs, carregando: false }));
   }
 
   chamandoApi = () => {
@@ -25,7 +35,7 @@ class Album extends React.Component {
   }
 
   componentBody = () => {
-    const { arrMusic } = this.state;
+    const { arrMusic, favorSongs } = this.state;
     return (
       <section>
         <h1 data-testid="album-name">{ arrMusic[0].collectionName }</h1>
@@ -36,14 +46,17 @@ class Album extends React.Component {
             name={ music.trackName }
             previewUrl={ music.previewUrl }
             key={ index }
+            trackId={ music.trackId }
+            objMusic={ music }
+            checked={ favorSongs }
+            func={ this.carregandoFunc }
           />)) }
       </section>
     );
   }
 
   render() {
-    const { arrMusic, carregando } = this.state;
-    console.log(arrMusic);
+    const { carregando } = this.state;
     return (
       <div data-testid="page-album">
         <Header />
