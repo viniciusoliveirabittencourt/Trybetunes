@@ -4,6 +4,7 @@ import { addSong, removeSong } from '../services/favoriteSongsAPI';
 import Carregando from './Carregando';
 
 class MusicCard extends React.Component {
+  // testanto
   constructor() {
     super();
     this.state = {
